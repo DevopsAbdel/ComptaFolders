@@ -135,19 +135,28 @@ $CreateBtn.Add_Click({
                 $template = Join-Path $scriptDir 'Resources\InventoryTemplate.html'
                 $inv = New-InventoryHtml -DossierPath $root -TemplatePath $template
                 $results += "OK - $root"
-                $StatusBox.AppendText("`n[DEBUG] root='$root'`n")
+                $StatusBox.AppendText("`n[DEBUG] root='$root' [type=$($root.GetType().FullName)] [null=$([string]::IsNullOrEmpty($root))]`n")
                 if ($companies.Count -eq 1 -and $OpenAfterCreate -and $OpenAfterCreate.IsChecked) {
                     try {
-                        if ([string]::IsNullOrWhiteSpace($root)) {
-                            $StatusBox.AppendText("[DEBUG] root is null/empty - skip open`n")
-                        } elseif (-not (Test-Path -LiteralPath $root)) {
-                            $StatusBox.AppendText("[DEBUG] root does not exist - skip open`n")
-                        } else {
-                            $StatusBox.AppendText("[DEBUG] opening explorer for '$root'`n")
-                            Start-Process -FilePath "explorer.exe" -ArgumentList "`"$root`""
+                        if ([string]::IsNullOrWhiteSpace([string]$root)) {
+                            $StatusBox.AppendText("[DEBUG] root is null/empty/whitespace - skip open`n")
+                            throw "root is null/empty"
                         }
+                        $rootStr = [string]$root
+                        if (-not (Test-Path -LiteralPath $rootStr)) {
+                            $StatusBox.AppendText("[DEBUG] Test-Path failed for '$rootStr'`n")
+                            throw "root does not exist: $rootStr"
+                        }
+                        $StatusBox.AppendText("[DEBUG] calling explorer for '$rootStr'`n")
+                        Start-Process -FilePath "explorer.exe" -ArgumentList $rootStr
                     } catch {
-                        $StatusBox.AppendText("[DEBUG] open error: $($_.Exception.Message)`n")
+                        $StatusBox.AppendText("[DEBUG][ERR] $($_.Exception.GetType().FullName): $($_.Exception.Message)`n")
+                        if ($_.InvocationInfo) {
+                            $StatusBox.AppendText("[DEBUG][ERR] at $($_.InvocationInfo.ScriptName):$($_.InvocationInfo.ScriptLineNumber)`n")
+                        }
+                        if ($_.ScriptStackTrace) {
+                            $StatusBox.AppendText("[DEBUG][ERR] stack: $($_.ScriptStackTrace)`n")
+                        }
                     }
                 }
             } catch {
