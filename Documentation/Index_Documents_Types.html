@@ -2,27 +2,31 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Index des documents types</title>
+<title>Index des documents types - Dossiers clients comptables</title>
 <style>
-body { font-family: Segoe UI, Arial, sans-serif; margin: 24px; }
-table { border-collapse: collapse; width: 100%; }
-th, td { border: 1px solid #ccc; padding: 8px; }
-th { background: #1f4e79; color: #fff; }
+body { font-family: Segoe UI, Arial, sans-serif; margin: 24px; background: #0E0E0E; color: #E6E6E6; }
+h1 { color: #9B7CFF; }
+table { border-collapse: collapse; width: 100%; background: #1E1E1E; }
+th, td { border: 1px solid #3A3A42; padding: 10px; text-align: left; }
+th { background: #7856FF; color: #fff; }
+tr:nth-child(even) { background: #16161D; }
 </style>
 </head>
 <body>
 <h1>Index des documents types</h1>
 <table>
-<tr><th>Categorie</th><th>Dossier cible</th><th>Extension / Modele type</th></tr>
-<tr><td>Ventes / Achats a classer</td><td>00-YYYY_Scans_a_traiter_COMPANY</td><td>.pdf, .jpeg</td></tr>
-<tr><td>Factures d'achats</td><td>01-YYYY_Achats_COMPANY</td><td>Fact_Achats_YYYY-MM_SOCIETE.pdf</td></tr>
-<tr><td>Factures de ventes</td><td>02-YYYY_Ventes_COMPANY</td><td>Fact_Ventes_YYYY-MM_SOCIETE.pdf</td></tr>
-<tr><td>Releves bancaires</td><td>03-YYYY_Banque_COMPANY</td><td>Rlv_YYYY_NNN_SOCIETE.pdf</td></tr>
-<tr><td>Exports comptables</td><td>04-YYYY_Sage_COMPANY</td><td>YYYY-MM-DD_Journals_SOCIETE.xlsx</td></tr>
-<tr><td>Fichiers / XML TVA</td><td>05-.../01_Tva</td><td>.xlsx, .xml, .zip, .pdf</td></tr>
-<tr><td>Delais de paiement</td><td>05-.../02_Delais_Paiement</td><td>Delais_Paiement_Trimestre X_YYYY.xlsx</td></tr>
-<tr><td>Bordereaux CNSS</td><td>06-YYYY_Cnss_COMPANY</td><td>YYYY-MM_Bordereau_CNSS.pdf</td></tr>
-<tr><td>Attestations fiscales</td><td>07-YYYY_Attestations_COMPANY</td><td>Attestation_REG_Fis_SOCIETE.pdf</td></tr>
+<tr><th>Catégorie</th><th>Dossier cible</th><th>Extension / Modèle type</th></tr>
+<tr><td>Scans à classer (Ventes / Achats / Divers)</td><td>00-YYYY_Scans_a_traiter_SOCIETE</td><td>.pdf, .jpeg, .jpg, .png</td></tr>
+<tr><td>Factures d'achats</td><td>01-YYYY_Achats_SOCIETE / Autres Achats</td><td>Fact_Achats_YYYY-MM_SOCIETE.pdf</td></tr>
+<tr><td>Factures de ventes</td><td>02-YYYY_Ventes_SOCIETE / Autres Ventes</td><td>Fact_Ventes_YYYY-MM_SOCIETE.pdf</td></tr>
+<tr><td>Relevés bancaires</td><td>03-YYYY_Banque_SOCIETE</td><td>Rlv_YYYY_NNN_SOCIETE.pdf</td></tr>
+<tr><td>Exports comptables Sage</td><td>04-YYYY_Sage_SOCIETE</td><td>YYYY-MM-DD_Journals_SOCIETE.xlsx</td></tr>
+<tr><td>TVA (Excel / XML / Récépissés)</td><td>05-YYYY_Decl_Fiscal_SOCIETE/01_Tva</td><td>.xlsx, .xml, .zip, .pdf</td></tr>
+<tr><td>Délais de paiement (DP)</td><td>05-YYYY_Decl_Fiscal_SOCIETE/02_Delais_Paiement</td><td>Convention_delais_paiement_FOURNISSEUR.docx / .pdf</td></tr>
+<tr><td>Bordereaux CNSS</td><td>06-YYYY_Cnss_SOCIETE</td><td>YYYY-MM_Bordereau_CNSS.pdf</td></tr>
+<tr><td>Attestations fiscales</td><td>07-YYYY_Attestations_SOCIETE</td><td>YYYY-MM_Attestation_CA_SOCIETE.pdf / IF / TP</td></tr>
+<tr><td>Demandes</td><td>08-YYYY_Demandes_SOCIETE</td><td>.pdf, .docx, .xlsx</td></tr>
+<tr><td>Divers / Archives</td><td>09-YYYY_Autres_SOCIETE / 99-YYYY_Archives_SOCIETE</td><td>Selon nature du document</td></tr>
 </table>
 </body>
 </html>

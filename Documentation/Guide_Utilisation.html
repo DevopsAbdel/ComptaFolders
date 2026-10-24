@@ -2,24 +2,34 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Guide d'utilisation</title>
+<title>Guide d'utilisation - Createur de dossiers clients comptables</title>
 <style>
-body { font-family: Segoe UI, Arial, sans-serif; margin: 24px; line-height: 1.6; }
-h1 { color: #1f4e79; }
+body { font-family: Segoe UI, Arial, sans-serif; margin: 24px; line-height: 1.6; background: #0E0E0E; color: #E6E6E6; }
+h1 { color: #9B7CFF; }
+h2 { color: #B9A8FF; }
+.card { background: #1E1E1E; padding: 16px; border-radius: 8px; border: 1px solid #3A3A42; }
 ol { margin-left: 20px; }
-.card { background: #f4f6f9; padding: 12px 16px; border-radius: 8px; }
+code { background: #16161D; padding: 2px 6px; border-radius: 4px; }
 </style>
 </head>
 <body>
-<h1>Guide d'utilisation - Createur de dossiers clients</h1>
+<h1>Guide d'utilisation - Créateur de dossiers clients comptables</h1>
 <div class="card">
+<h2>Étapes d'utilisation</h2>
 <ol>
-<li><strong>Selection de l'annee</strong> : par defaut l'annee en cours, modifiable.</li>
-<li><strong>Saisie de la societe</strong> : le nom est converti en majuscules et les espaces deviennent des underscores.</li>
-<li><strong>Selection du chemin parent</strong> : choisir l'emplacement racine (ex: OneDrive - JoCons\01_Clients\).</li>
-<li><strong>Generation et inventaire HTML</strong> : l'application cree la structure standard et genere un rapport HTML d'inventaire.</li>
+<li><strong>Sélection de l'année</strong> : Par défaut l'année en cours, modifiable pour les dossiers antérieurs.</li>
+<li><strong>Saisie de la société</strong> : Le nom est automatiquement converti en majuscules et les espaces sont remplacés par des underscores (_). Les caractères interdits par Windows sont supprimés.</li>
+<li><strong>Sélection du chemin parent</strong> : Choisir l'emplacement racine où sera créé le dossier <code>YYYY_SOCIETE</code>.</li>
+<li><strong>Vérification</strong> : L'application vérifie que le dossier racine n'existe pas déjà.</li>
+<li><strong>Création</strong> : Génération de l'arborescence complète, copie de la charte et des fiches repères, puis génération du rapport d'inventaire HTML.</li>
 </ol>
+<h2>Options disponibles</h2>
+<ul>
+<li><strong>Ouvrir le dossier après création</strong> : Ouvre automatiquement le dossier racine dans l'Explorateur Windows.</li>
+<li><strong>Guide / Index documents</strong> : Accès direct à la documentation intégrée.</li>
+</ul>
+<h2>Lancement</h2>
+<p><code>.\Create-DossierClient-GUI.ps1</code> ou via le raccourci de l'application.</p>
 </div>
-<p>Lancement : <code>.\Create-DossierClient-GUI.ps1</code></p>
 </body>
 </html>
