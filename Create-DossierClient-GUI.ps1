@@ -26,6 +26,26 @@ $xamlDoc.LoadXml($xamlText)
 $xmlReader = New-Object System.Xml.XmlNodeReader $xamlDoc
 $window = [System.Windows.Markup.XamlReader]::Load($xmlReader)
 
+# Dark title bar via DWM
+$window.Add_SourceInitialized({
+    try {
+        Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+public class DwmHelper {
+    [DllImport("dwmapi.dll")]
+    public static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, ref int attrValue, int attrSize);
+    public static void SetDarkMode(IntPtr hwnd, bool dark) {
+        int val = dark ? 1 : 0;
+        DwmSetWindowAttribute(hwnd, 20, ref val, sizeof(int));
+    }
+}
+"@
+        $hwnd = (New-Object System.Windows.Interop.WindowInteropHelper $window).Handle
+        [DwmHelper]::SetDarkMode($hwnd, $true)
+    } catch {}
+})
+
 # Apply icon at runtime with fallback
 try {
     $iconPath = Join-Path $scriptDir 'Resources\app.ico'
