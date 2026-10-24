@@ -72,6 +72,7 @@
                             <Trigger Property="IsKeyboardFocused" Value="True">
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#B9A8FF"/>
                                 <Setter TargetName="Border" Property="Background" Value="#383843"/>
+                                <Setter Property="Cursor" Value="IBeam"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#9B7CFF"/>
