@@ -1,0 +1,14 @@
+========================================================================
+ SOUS-DOSSIER : 00 - SCANS A TRAITER
+ Dossier Client : {ANNEE}_{SOCIETE}
+========================================================================
+
+A DEPOSER ICI :
+- Scans bruts en attente de classement (Achats / Ventes / Divers)
+- Factures non encore ventilées
+- Pièces à trier
+
+NOMMAGE TYPE :
+- YYYY-MM_TVA_SOCIETE_Dos-complet.pdf
+- Fact_Achats_YYYY-MM_SOCIETE.pdf
+- Fact_Ventes_YYYY-MM_SOCIETE.pdf

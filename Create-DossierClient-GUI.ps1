@@ -61,6 +61,7 @@ $CreateBtn = $window.FindName('CreateBtn')
 $StatusBox = $window.FindName('StatusBox')
 $GuideBtn = $window.FindName('GuideBtn')
 $IndexBtn = $window.FindName('IndexBtn')
+$OpenAfterCreate = $window.FindName('OpenAfterCreate')
 
 $BrowseBtn.Add_Click({
     $dlg = New-Object System.Windows.Forms.FolderBrowserDialog
@@ -75,9 +76,39 @@ $CreateBtn.Add_Click({
         $company = $CompanyBox.Text
         $parent = $ParentBox.Text
         $root = New-ClientDossier -Year $year -CompanyName $company -ParentPath $parent
+        $compNorm = (Get-NormalizedCompanyName -Name $company)
+        try {
+            $charteSrc = Join-Path $scriptDir 'Resources\Charte_Nommage_Repere.txt'
+            if (Test-Path $charteSrc) {
+                $c = [System.IO.File]::ReadAllText($charteSrc)
+                $c = $c.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
+                [System.IO.File]::WriteAllText((Join-Path $root 'Charte_Nommage_Fichiers.txt'), $c, (New-Object System.Text.UTF8Encoding($false)))
+            }
+            $scans = Join-Path $root "00-${year}_Scans_a_traiter_${compNorm}"
+            if (Test-Path $scans) {
+                $s = [System.IO.File]::ReadAllText((Join-Path $scriptDir 'Resources\LisezMoi_Scans.txt'))
+                $s = $s.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
+                [System.IO.File]::WriteAllText((Join-Path $scans 'LisezMoi_Scans.txt'), $s, (New-Object System.Text.UTF8Encoding($false)))
+            }
+            $dem = Join-Path $root "08-${year}_Demandes_${compNorm}"
+            if (Test-Path $dem) {
+                $d = [System.IO.File]::ReadAllText((Join-Path $scriptDir 'Resources\LisezMoi_Demande.txt'))
+                $d = $d.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
+                [System.IO.File]::WriteAllText((Join-Path $dem 'LisezMoi_Demande.txt'), $d, (New-Object System.Text.UTF8Encoding($false)))
+            }
+            $prep = Join-Path $root "05-${year}_Decl_Fiscal_${compNorm}\02_Delais_Paiement"
+            if (Test-Path $prep) {
+                $p = [System.IO.File]::ReadAllText((Join-Path $scriptDir 'Resources\LisezMoi_Preparation.txt'))
+                $p = $p.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
+                [System.IO.File]::WriteAllText((Join-Path $prep 'LisezMoi_Preparation.txt'), $p, (New-Object System.Text.UTF8Encoding($false)))
+            }
+        } catch {}
         $template = Join-Path $scriptDir 'Resources\InventoryTemplate.html'
         $inv = New-InventoryHtml -DossierPath $root -TemplatePath $template
         $StatusBox.Text = "Dossier cree : $root`nInventaire : $inv"
+        if ($OpenAfterCreate -and $OpenAfterCreate.IsChecked) {
+            try { Start-Process $root } catch {}
+        }
         Show-DarkMessage -Title "Succes" -Message "Dossier cree avec succes.`n$root"
     } catch {
         $StatusBox.Text = "Erreur : $($_.Exception.Message)"

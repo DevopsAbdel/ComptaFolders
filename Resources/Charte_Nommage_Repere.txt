@@ -1,0 +1,29 @@
+========================================================================
+ CHARTE DE NOMMAGE - DOSSIER CLIENT COMPTABLE
+ Dossier Client : {ANNEE}_{SOCIETE}
+========================================================================
+
+RACINE : YYYY_SOCIETE_MAJUSCULES
+
+SOUS-DOSSIERS PRINCIPAUX :
+- 00-YYYY_Scans_a_traiter_SOCIETE
+- 01-YYYY_Achats_SOCIETE (+ Autres Achats)
+- 02-YYYY_Ventes_SOCIETE (+ Autres Ventes)
+- 03-YYYY_Banque_SOCIETE
+- 04-YYYY_Sage_SOCIETE
+- 05-YYYY_Decl_Fiscal_SOCIETE (01_Tva / 02_Delais_Paiement / 03_Autres)
+- 06-YYYY_Cnss_SOCIETE
+- 07-YYYY_Attestations_SOCIETE
+- 08-YYYY_Demandes_SOCIETE
+- 09-YYYY_Autres_SOCIETE
+- 99-YYYY_Archives_SOCIETE
+
+NOMMAGE FICHIERS TYPE :
+- Scans TVA complets : YYYY-MM_TVA_SOCIETE_Dos-complet.pdf
+- Récépissés / Déclarations TVA : YYYY-MM_Recu_Decl_Tva_SOCIETE.pdf
+- Fichiers Excel TVA : Deductions_SOCIETE_MM_YYYY.xlsx
+- Archives XML TVA : Releve_Deductions_MM_YYYY.zip
+- Délais de Paiement : Convention_delais_paiement_FOURNISSEUR.docx
+- Attestations Fiscales : YYYY-MM_Attestation_CA_SOCIETE.pdf, YYYY-MM_IF_SOCIETE.pdf, YYYY-MM_TP_SOCIETE.pdf
+- Relevés bancaires : Rlv_YYYY_NNN_SOCIETE.pdf
+- Exports comptables Sage : YYYY-MM-DD_Journals_SOCIETE.xlsx
