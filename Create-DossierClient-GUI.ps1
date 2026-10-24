@@ -63,6 +63,9 @@ $GuideBtn = $window.FindName('GuideBtn')
 $IndexBtn = $window.FindName('IndexBtn')
 $OpenAfterCreate = $window.FindName('OpenAfterCreate')
 
+$parentDefault = $scriptDir
+if (Test-Path $parentDefault) { $ParentBox.Text = $parentDefault } else { $ParentBox.Text = (Get-Location).Path }
+
 $BrowseBtn.Add_Click({
     $dlg = New-Object System.Windows.Forms.FolderBrowserDialog
     if ($dlg.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
