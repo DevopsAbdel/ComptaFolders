@@ -61,6 +61,7 @@
             <Setter Property="BorderBrush" Value="#7C7C86"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Cursor" Value="IBeam"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
