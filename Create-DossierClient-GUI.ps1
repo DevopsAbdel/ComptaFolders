@@ -104,7 +104,18 @@ $CreateBtn.Add_Click({
         $results = @()
         foreach ($company in $companies) {
             try {
+                $logPath = "C:\temp_createur_debug.log"
+                $msg = "[$(Get-Date)] call New-ClientDossier Year=$year Company=$company Parent=$parent"
+                try { [System.IO.File]::AppendAllText($logPath, $msg + "`n", [System.Text.Encoding]::UTF8) } catch { Write-Host "LOGERR: $($_.Exception.Message)" }
+                $StatusBox.AppendText("`n[DEBUG] call New-ClientDossier Year=$year Company=$company Parent=$parent`n")
                 $root = New-ClientDossier -Year $year -CompanyName $company -ParentPath $parent
+                $msg2 = "[$(Get-Date)] New-ClientDossier returned '$root' type=$($root.GetType().FullName)"
+                try { [System.IO.File]::AppendAllText($logPath, $msg2 + "`n", [System.Text.Encoding]::UTF8) } catch { Write-Host "LOGERR: $($_.Exception.Message)" }
+                $StatusBox.AppendText("[DEBUG] New-ClientDossier returned '$root'`n")
+                if ($root -eq $null) {
+                    $msg3 = "[$(Get-Date)] ROOT IS NULL"
+                    [System.IO.File]::AppendAllText($logPath, $msg3 + "`n", [System.Text.Encoding]::UTF8)
+                }
                 $compNorm = (Get-NormalizedCompanyName -Name $company)
                 try {
                     $charteSrc = Join-Path $scriptDir 'Resources\Charte_Nommage_Repere.txt'
@@ -148,7 +159,7 @@ $CreateBtn.Add_Click({
                             throw "root does not exist: $rootStr"
                         }
                         $StatusBox.AppendText("[DEBUG] calling explorer for '$rootStr'`n")
-                        Start-Process -FilePath "explorer.exe" -ArgumentList $rootStr
+                        Start-Process -FilePath "explorer.exe" -ArgumentList "`"$rootStr`""
                     } catch {
                         $StatusBox.AppendText("[DEBUG][ERR] $($_.Exception.GetType().FullName): $($_.Exception.Message)`n")
                         if ($_.InvocationInfo) {
