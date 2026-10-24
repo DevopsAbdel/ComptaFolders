@@ -67,9 +67,13 @@ $IndexBtn = $window.FindName('IndexBtn')
 $OpenAfterCreate = $window.FindName('OpenAfterCreate')
 
 $parentDefault = $PSScriptRoot
-if (-not $parentDefault) { $parentDefault = $scriptDir }
+if (-not $parentDefault) { $parentDefault = (Split-Path -Parent $MyInvocation.MyCommand.Path) }
 if (-not $parentDefault) { $parentDefault = (Get-Location).Path }
-$ParentBox.Text = $parentDefault
+$window.Dispatcher.Invoke([Action]{
+    $ParentBox.Text = $parentDefault
+    $ParentBox.CaretIndex = $ParentBox.Text.Length
+    $YearBox.CaretIndex = $YearBox.Text.Length
+}, [System.Windows.Threading.DispatcherPriority]::Background) | Out-Null
 
 $BrowseBtn.Add_Click({
     $dlg = New-Object System.Windows.Forms.FolderBrowserDialog
