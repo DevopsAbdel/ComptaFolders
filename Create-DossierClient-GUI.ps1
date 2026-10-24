@@ -26,6 +26,14 @@ $xamlDoc.LoadXml($xamlText)
 $xmlReader = New-Object System.Xml.XmlNodeReader $xamlDoc
 $window = [System.Windows.Markup.XamlReader]::Load($xmlReader)
 
+# Apply icon at runtime with fallback
+try {
+    $iconPath = Join-Path $scriptDir 'Resources\app.ico'
+    if (Test-Path -LiteralPath $iconPath) {
+        $window.Icon = [System.Windows.Media.Imaging.BitmapFrame]::Create([Uri]::new($iconPath, [UriKind]::Absolute))
+    }
+} catch {}
+
 function Show-DarkMessage {
     param([string]$Title, [string]$Message)
     $dlg = New-Object System.Windows.Window
