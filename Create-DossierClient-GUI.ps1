@@ -129,17 +129,19 @@ $CreateBtn.Add_Click({
                 $template = Join-Path $scriptDir 'Resources\InventoryTemplate.html'
                 $inv = New-InventoryHtml -DossierPath $root -TemplatePath $template
                 $results += "OK - $root"
+                $StatusBox.AppendText("`n[DEBUG] root='$root'`n")
                 if ($companies.Count -eq 1 -and $OpenAfterCreate -and $OpenAfterCreate.IsChecked) {
                     try {
-                        if (-not [string]::IsNullOrWhiteSpace($root) -and (Test-Path -LiteralPath $root)) {
+                        if ([string]::IsNullOrWhiteSpace($root)) {
+                            $StatusBox.AppendText("[DEBUG] root is null/empty - skip open`n")
+                        } elseif (-not (Test-Path -LiteralPath $root)) {
+                            $StatusBox.AppendText("[DEBUG] root does not exist - skip open`n")
+                        } else {
+                            $StatusBox.AppendText("[DEBUG] opening explorer for '$root'`n")
                             Start-Process -FilePath "explorer.exe" -ArgumentList "`"$root`""
                         }
                     } catch {
-                        try {
-                            if (-not [string]::IsNullOrWhiteSpace($root) -and (Test-Path -LiteralPath $root)) {
-                                [System.Diagnostics.Process]::Start($root) | Out-Null
-                            }
-                        } catch {}
+                        $StatusBox.AppendText("[DEBUG] open error: $($_.Exception.Message)`n")
                     }
                 }
             } catch {
