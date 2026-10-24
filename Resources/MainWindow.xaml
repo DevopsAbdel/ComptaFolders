@@ -152,7 +152,6 @@
                 <Button Name="CreateBtn" Content="✅ Créer le dossier" Padding="8,4" Height="26" Background="#22C55E" Foreground="White" FontSize="11"/>
             </StackPanel>
             <CheckBox Name="OpenAfterCreate" Content="Ouvrir le dossier après création" IsChecked="True" Foreground="#E6E6E6" Margin="0,4,0,0" VerticalAlignment="Center"/>
-            <CheckBox Name="OpenPowerShell" Content="Ouvrir PowerShell dans le dossier créé" IsChecked="False" Foreground="#E6E6E6" Margin="0,4,0,0" VerticalAlignment="Center"/>
         </StackPanel>
 
         <TextBox Grid.Row="3" Name="StatusBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" Background="#16161D" Foreground="#C9C9D0" BorderBrush="#2A2A30" Margin="0,0,0,6" Padding="10" FontSize="11" Height="Auto" MinHeight="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AcceptsReturn="True" VerticalContentAlignment="Top"/>
