@@ -3,14 +3,14 @@ param()
 
 $ErrorActionPreference = 'Stop'
 
-$scriptDir = $PSScriptRoot
-if (-not $scriptDir) {
+$scriptDir = [System.AppDomain]::CurrentDomain.BaseDirectory
+if (-not $scriptDir -or -not (Test-Path $scriptDir)) {
     $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 }
-if (-not $scriptDir) {
-    $scriptDir = [System.AppDomain]::CurrentDomain.BaseDirectory
+if (-not $scriptDir -or -not (Test-Path $scriptDir)) {
+    $scriptDir = $PSScriptRoot
 }
-if (-not $scriptDir) {
+if (-not $scriptDir -or -not (Test-Path $scriptDir)) {
     $scriptDir = (Get-Location).Path
 }
 $modulePath = Join-Path $scriptDir 'lib\DossierClient.psm1'
