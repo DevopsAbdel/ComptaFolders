@@ -39,26 +39,27 @@
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="6,4"/>
-            <Setter Property="Background" Value="#2B2B35"/>
+            <Setter Property="Background" Value="#2F2F3A"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
             <Setter Property="CaretBrush" Value="#FFFFFF"/>
             <Setter Property="SelectionBrush" Value="#9B7CFF"/>
-            <Setter Property="SelectionOpacity" Value="0.4"/>
-            <Setter Property="BorderBrush" Value="#6B6B75"/>
+            <Setter Property="SelectionOpacity" Value="0.5"/>
+            <Setter Property="BorderBrush" Value="#7C7C86"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6">
-                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" Foreground="#FFFFFF"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsKeyboardFocused" Value="True">
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#B9A8FF"/>
-                                <Setter TargetName="Border" Property="Background" Value="#33333D"/>
+                                <Setter TargetName="Border" Property="Background" Value="#383843"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#8A8A96"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#9B9BA5"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
