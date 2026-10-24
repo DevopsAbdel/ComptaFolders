@@ -52,7 +52,9 @@
             </Setter>
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinHeight" Value="40"/>
             <Setter Property="Background" Value="#2F2F3A"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
             <Setter Property="CaretBrush" Value="#FFFFFF"/>
@@ -60,23 +62,24 @@
             <Setter Property="SelectionOpacity" Value="0.5"/>
             <Setter Property="BorderBrush" Value="#7C7C86"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Cursor" Value="IBeam"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6">
-                            <ScrollViewer x:Name="PART_ContentHost" Margin="4,2,4,2"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsKeyboardFocused" Value="True">
                                 <Setter TargetName="Border" Property="BorderBrush" Value="#B9A8FF"/>
                                 <Setter TargetName="Border" Property="Background" Value="#383843"/>
-                                <Setter Property="Cursor" Value="IBeam"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#9B7CFF"/>
-                                <Setter TargetName="Border" Property="Background" Value="#407856FF"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#B9A8FF"/>
+                                <Setter TargetName="Border" Property="Background" Value="#383843"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -128,17 +131,17 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Margin="0,0,8,0">
                 <Label Content="Année" Foreground="#E6E6E6" Margin="0,0,0,4" Padding="0"/>
-                <TextBox Name="YearBox" Text="2026" Height="28" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" Padding="6"/>
+                <TextBox Name="YearBox" Text="2026" Height="40" MinHeight="40" Padding="10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="8,0,0,0">
                 <Label Content="Société (séparer par ; ou , pour création multiple)" Foreground="#E6E6E6" Margin="0,0,0,4" Padding="0"/>
-                <TextBox Name="CompanyBox" Height="28" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" Padding="6"/>
+                <TextBox Name="CompanyBox" Height="40" MinHeight="40" Padding="10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42"/>
             </StackPanel>
         </Grid>
 
         <StackPanel Grid.Row="1" Margin="0,0,0,8">
             <Label Content="Chemin parent" Foreground="#E6E6E6" Margin="0,0,0,4" Padding="0"/>
-            <TextBox Name="ParentBox" Height="28" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" Padding="6" HorizontalScrollBarVisibility="Auto" TextWrapping="NoWrap"/>
+            <TextBox Name="ParentBox" Height="40" MinHeight="40" Padding="10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" HorizontalScrollBarVisibility="Auto" TextWrapping="NoWrap"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0,4,0,8">
