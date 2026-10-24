@@ -131,11 +131,15 @@ $CreateBtn.Add_Click({
                 $results += "OK - $root"
                 if ($companies.Count -eq 1 -and $OpenAfterCreate -and $OpenAfterCreate.IsChecked) {
                     try {
-                        if (Test-Path $root) {
+                        if (-not [string]::IsNullOrWhiteSpace($root) -and (Test-Path -LiteralPath $root)) {
                             Start-Process -FilePath "explorer.exe" -ArgumentList "`"$root`""
                         }
                     } catch {
-                        try { Start-Process $root } catch {}
+                        try {
+                            if (-not [string]::IsNullOrWhiteSpace($root) -and (Test-Path -LiteralPath $root)) {
+                                [System.Diagnostics.Process]::Start($root) | Out-Null
+                            }
+                        } catch {}
                     }
                 }
             } catch {
