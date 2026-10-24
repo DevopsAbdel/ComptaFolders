@@ -85,15 +85,13 @@
             <TextBox Name="ParentBox" Height="28" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" Padding="6"/>
         </StackPanel>
 
-        <Grid Grid.Row="2" Margin="0,4,0,8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="BrowseBtn" Content="📂 Parcourir" Padding="10,6" Margin="0,0,8,0" Background="#7856FF" Foreground="White" FontSize="11"/>
-            <Button Grid.Column="1" Name="CreateBtn" Content="✅ Créer le dossier" Padding="10,6" Background="#22C55E" Foreground="White" FontSize="11"/>
-        </Grid>
-        <CheckBox Grid.Row="2" Name="OpenAfterCreate" Content="Ouvrir le dossier après création" IsChecked="True" Foreground="#E6E6E6" Margin="0,50,0,0"/>
+        <StackPanel Grid.Row="2" Margin="0,4,0,8">
+            <StackPanel Orientation="Horizontal">
+                <Button Name="BrowseBtn" Content="📂 Parcourir" Padding="8,4" Margin="0,0,6,0" Height="26" Background="#7856FF" Foreground="White" FontSize="11"/>
+                <Button Name="CreateBtn" Content="✅ Créer le dossier" Padding="8,4" Height="26" Background="#22C55E" Foreground="White" FontSize="11"/>
+            </StackPanel>
+            <CheckBox Name="OpenAfterCreate" Content="Ouvrir le dossier après création" IsChecked="True" Foreground="#E6E6E6" Margin="0,6,0,0" VerticalAlignment="Center"/>
+        </StackPanel>
 
         <TextBox Grid.Row="3" Name="StatusBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Background="#16161D" Foreground="#C9C9D0" BorderBrush="#2A2A30" Margin="0,0,0,8" Padding="8"/>
 
