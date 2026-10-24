@@ -66,8 +66,10 @@ $GuideBtn = $window.FindName('GuideBtn')
 $IndexBtn = $window.FindName('IndexBtn')
 $OpenAfterCreate = $window.FindName('OpenAfterCreate')
 
-$parentDefault = $scriptDir
-if (Test-Path $parentDefault) { $ParentBox.Text = $parentDefault } else { $ParentBox.Text = (Get-Location).Path }
+$parentDefault = $PSScriptRoot
+if (-not $parentDefault) { $parentDefault = $scriptDir }
+if (-not $parentDefault) { $parentDefault = (Get-Location).Path }
+$ParentBox.Text = $parentDefault
 
 $BrowseBtn.Add_Click({
     $dlg = New-Object System.Windows.Forms.FolderBrowserDialog
