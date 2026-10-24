@@ -39,12 +39,12 @@
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="6,4"/>
-            <Setter Property="Background" Value="#1F1F27"/>
-            <Setter Property="Foreground" Value="#F5F5F5"/>
-            <Setter Property="CaretBrush" Value="#A78BFA"/>
-            <Setter Property="SelectionBrush" Value="#7C3AED"/>
-            <Setter Property="SelectionOpacity" Value="0.5"/>
-            <Setter Property="BorderBrush" Value="#4B4B55"/>
+            <Setter Property="Background" Value="#2B2B35"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="CaretBrush" Value="#FFFFFF"/>
+            <Setter Property="SelectionBrush" Value="#9B7CFF"/>
+            <Setter Property="SelectionOpacity" Value="0.4"/>
+            <Setter Property="BorderBrush" Value="#6B6B75"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -54,11 +54,11 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsKeyboardFocused" Value="True">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#9B7CFF"/>
-                                <Setter TargetName="Border" Property="Background" Value="#23232D"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#B9A8FF"/>
+                                <Setter TargetName="Border" Property="Background" Value="#33333D"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#6B6B75"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="#8A8A96"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
