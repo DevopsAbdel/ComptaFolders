@@ -167,6 +167,8 @@
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Name="GuideBtn" Content="📖 Guide" Margin="4,0" Padding="12,6" Background="#5B9BFF" Foreground="White"/>
                 <Button Name="IndexBtn" Content="📑 Index documents" Margin="4,0" Padding="12,6" Background="#F5B700" Foreground="#1E1E1E"/>
+                <Button Name="UpdateBtn" Content="🔄 Mises à jour" Margin="4,0" Padding="12,6" Background="#10B981" Foreground="White"/>
+                <Button Name="AboutBtn" Content="ℹ️ À propos" Margin="4,0" Padding="12,6" Background="#7856FF" Foreground="White"/>
             </StackPanel>
         </Grid>
     </Grid>

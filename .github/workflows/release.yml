@@ -1,0 +1,42 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lire la version centralisee
+        shell: pwsh
+        id: ver
+        run: |
+          . .\AppVersion.ps1
+          "version=$AppVersion" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "tag=v$AppVersion" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+      - name: Installer Pester
+        shell: pwsh
+        run: Install-Module Pester -RequiredVersion 4.10.1 -Scope CurrentUser -Force -SkipPublisherCheck
+      - name: Installer PS2EXE
+        shell: pwsh
+        run: Install-Module ps2exe -Scope CurrentUser -Force -SkipPublisherCheck
+      - name: Construire l'EXE
+        shell: pwsh
+        run: .\Build-Exe.ps1
+      - name: Creer la release GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ver.outputs.tag }}
+          name: ComptaFolders v${{ steps.ver.outputs.version }}
+          files: |
+            ComptaFolders.exe
+            ComptaFolders.ps1
+            AppVersion.ps1
+            lib/DossierClient.psm1
+            Resources/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -16,6 +16,15 @@ if (-not $scriptDir -or -not (Test-Path $scriptDir)) {
 $modulePath = Join-Path $scriptDir 'lib\DossierClient.psm1'
 Import-Module $modulePath -Force
 
+# Version centralisee
+$appVersionPath = Join-Path $scriptDir 'AppVersion.ps1'
+if (Test-Path -LiteralPath $appVersionPath) { . $appVersionPath }
+if (-not (Get-Variable -Name AppName -ErrorAction SilentlyContinue)) { $AppName = 'ComptaFolders' }
+if (-not (Get-Variable -Name AppVersion -ErrorAction SilentlyContinue)) { $AppVersion = '1.0.0' }
+if (-not (Get-Variable -Name AppAuthor -ErrorAction SilentlyContinue)) { $AppAuthor = 'DevopsAbdel' }
+if (-not (Get-Variable -Name AppDescription -ErrorAction SilentlyContinue)) { $AppDescription = '' }
+if (-not (Get-Variable -Name AppRepo -ErrorAction SilentlyContinue)) { $AppRepo = 'DevopsAbdel/ComptaFolders' }
+
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.Windows.Forms
 
@@ -90,6 +99,34 @@ function Show-DarkMessage {
     $dlg.ShowDialog() | Out-Null
 }
 
+function Test-ForUpdate {
+    param([switch]$Silent)
+    try {
+        $api = "https://api.github.com/repos/$AppRepo/releases/latest"
+        $rel = Invoke-RestMethod -Uri $api -Headers @{ 'User-Agent' = 'ComptaFolders' } -TimeoutSec 10
+        $latestTag = $rel.tag_name
+        $latestVerStr = $latestTag -replace '^v',''
+        try { $latestVer = [version]$latestVerStr } catch { $latestVer = $null }
+        try { $curVer = [version]$AppVersion } catch { $curVer = $null }
+        if ($latestVer -and $curVer -and $latestVer -gt $curVer) {
+            $msg = "Une nouvelle version est disponible : $latestTag (actuelle : v$AppVersion).`nOuvrir la page de telechargement ?"
+            $dlg = [System.Windows.MessageBox]::Show($msg, 'Mise a jour disponible', 'YesNo', 'Information')
+            if ($dlg -eq [System.Windows.MessageBoxResult]::Yes) { Start-Process $rel.html_url }
+            return $true
+        } else {
+            if (-not $Silent) {
+                Show-DarkMessage -Title 'Mises a jour' -Message "Vous utilisez la derniere version (v$AppVersion)."
+            }
+            return $false
+        }
+    } catch {
+        if (-not $Silent) {
+            Show-DarkMessage -Title 'Mises a jour' -Message "Impossible de verifier les mises a jour : $($_.Exception.Message)"
+        }
+        return $false
+    }
+}
+
 $YearBox = $window.FindName('YearBox')
 $CompanyBox = $window.FindName('CompanyBox')
 $ParentBox = $window.FindName('ParentBox')
@@ -99,6 +136,9 @@ $StatusBox = $window.FindName('StatusBox')
 $GuideBtn = $window.FindName('GuideBtn')
 $IndexBtn = $window.FindName('IndexBtn')
 $FermerBtn = $window.FindName('FermerBtn')
+$AboutBtn = $window.FindName('AboutBtn')
+$UpdateBtn = $window.FindName('UpdateBtn')
+try { $window.Title = "$AppName $AppVersion" } catch {}
 $OpenAfterCreate = $window.FindName('OpenAfterCreate')
 
 $parentDefault = $scriptDir
@@ -112,6 +152,8 @@ $window.Add_Loaded({
         $ParentBox.Text = $parentDefault
     }, [System.Windows.Threading.DispatcherPriority]::Render)
     $ParentBox.Focus()
+    # Verification silencieuse des mises a jour
+    try { Test-ForUpdate -Silent | Out-Null } catch {}
 })
 
 $BrowseBtn.Add_Click({
@@ -227,6 +269,16 @@ $FermerBtn.Add_Click({
 $IndexBtn.Add_Click({
     $p = Join-Path $scriptDir 'Documentation\Index_Documents_Types.html'
     Start-Process $p
+})
+
+$AboutBtn.Add_Click({
+    $psVer = $PSVersionTable.PSVersion.ToString()
+    $aboutMsg = "Nom : $AppName`nVersion : $AppVersion`nAuteur : $AppAuthor`nChemin : $scriptDir`nPowerShell : $psVer"
+    Show-DarkMessage -Title "À propos" -Message $aboutMsg
+})
+
+$UpdateBtn.Add_Click({
+    Test-ForUpdate
 })
 
 $window.ShowDialog() | Out-Null

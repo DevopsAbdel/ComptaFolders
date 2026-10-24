@@ -18,6 +18,11 @@ jobs:
               Invoke-ScriptAnalyzer -Path $p -Settings .\ScriptAnalyzerSettings.psd1 -Severity Warning, Error
             }
           }
+      - name: Version centralisee
+        shell: pwsh
+        run: |
+          . .\AppVersion.ps1
+          Write-Host "AppName=$AppName AppVersion=$AppVersion"
       - name: Run Pester tests
         shell: pwsh
         run: Invoke-Pester -Path .\tests -EnableExit
