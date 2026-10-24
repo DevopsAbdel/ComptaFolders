@@ -138,7 +138,7 @@
 
         <StackPanel Grid.Row="1" Margin="0,0,0,8">
             <Label Content="Chemin parent" Foreground="#E6E6E6" Margin="0,0,0,4" Padding="0"/>
-            <TextBox Name="ParentBox" Height="28" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" Padding="6"/>
+            <TextBox Name="ParentBox" Height="28" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" Padding="6" HorizontalScrollBarVisibility="Auto" TextWrapping="NoWrap"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0,4,0,8">
