@@ -69,11 +69,14 @@ $OpenAfterCreate = $window.FindName('OpenAfterCreate')
 $parentDefault = $PSScriptRoot
 if (-not $parentDefault -or -not (Test-Path $parentDefault)) { $parentDefault = $scriptDir }
 if (-not $parentDefault -or -not (Test-Path $parentDefault)) { $parentDefault = (Get-Location).Path }
-$window.Add_Loaded({
+$window.Add_SourceInitialized({
     $ParentBox.Text = $parentDefault
+})
+$window.Add_Loaded({
+    $ParentBox.Dispatcher.Invoke([Action]{
+        $ParentBox.Text = $parentDefault
+    }, [System.Windows.Threading.DispatcherPriority]::Render)
     $ParentBox.Focus()
-    $ParentBox.SelectAll()
-    $ParentBox.CaretIndex = $ParentBox.Text.Length
 })
 
 $BrowseBtn.Add_Click({
