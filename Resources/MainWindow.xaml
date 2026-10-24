@@ -52,9 +52,9 @@
             </Setter>
         </Style>
         <Style TargetType="TextBox">
-            <Setter Property="Padding" Value="10,6"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="MinHeight" Value="40"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="MinHeight" Value="34"/>
             <Setter Property="Background" Value="#2F2F3A"/>
             <Setter Property="Foreground" Value="#FFFFFF"/>
             <Setter Property="CaretBrush" Value="#FFFFFF"/>
@@ -64,15 +64,15 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontSize" Value="12"/>
             <Setter Property="Cursor" Value="IBeam"/>
-            <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
-            <Setter Property="VerticalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6">
-                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsKeyboardFocused" Value="True">
@@ -119,7 +119,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -133,17 +133,17 @@
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Margin="0,0,8,0">
                 <Label Content="Année" Foreground="#E6E6E6" Margin="0,0,0,4" Padding="0"/>
-                <TextBox Name="YearBox" Text="2026" Height="40" MinHeight="40" Padding="10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42"/>
+                <TextBox Name="YearBox" Text="2026" Height="34" MinHeight="34" Padding="8,2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="12" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="8,0,0,0">
                 <Label Content="Société (séparer par ; ou , pour création multiple)" Foreground="#E6E6E6" Margin="0,0,0,4" Padding="0"/>
-                <TextBox Name="CompanyBox" Height="40" MinHeight="40" Padding="10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42"/>
+                <TextBox Name="CompanyBox" Height="34" MinHeight="34" Padding="8,2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="12" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled"/>
             </StackPanel>
         </Grid>
 
         <StackPanel Grid.Row="1" Margin="0,0,0,8">
             <Label Content="Chemin parent" Foreground="#E6E6E6" Margin="0,0,0,4" Padding="0"/>
-            <TextBox Name="ParentBox" Height="40" MinHeight="40" Padding="10,0" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="14" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" TextWrapping="NoWrap"/>
+            <TextBox Name="ParentBox" Height="34" MinHeight="34" Padding="8,2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontSize="12" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Disabled" TextWrapping="NoWrap"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Margin="0,4,0,8">
@@ -154,7 +154,7 @@
             <CheckBox Name="OpenAfterCreate" Content="Ouvrir le dossier après création" IsChecked="True" Foreground="#E6E6E6" Margin="0,6,0,0" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <TextBox Grid.Row="3" Name="StatusBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden" Background="#16161D" Foreground="#C9C9D0" BorderBrush="#2A2A30" Margin="0,0,0,8" Padding="8"/>
+        <TextBox Grid.Row="3" Name="StatusBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Background="#16161D" Foreground="#C9C9D0" BorderBrush="#2A2A30" Margin="0,0,0,8" Padding="10" FontSize="11"/>
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button Name="GuideBtn" Content="📖 Guide" Margin="4,0" Padding="12,6" Background="#5B9BFF" Foreground="White"/>
