@@ -149,11 +149,11 @@ $CreateBtn.Add_Click({
                 $StatusBox.AppendText("`n[DEBUG] root='$root' [type=$($root.GetType().FullName)] [null=$([string]::IsNullOrEmpty($root))]`n")
                 if ($companies.Count -eq 1 -and $OpenAfterCreate -and $OpenAfterCreate.IsChecked) {
                     try {
-                        if ([string]::IsNullOrWhiteSpace([string]$root)) {
+                        $rootStr = if ($root -eq $null) { "" } else { [string]$root }
+                        if ([string]::IsNullOrWhiteSpace($rootStr)) {
                             $StatusBox.AppendText("[DEBUG] root is null/empty/whitespace - skip open`n")
                             throw "root is null/empty"
                         }
-                        $rootStr = [string]$root
                         if (-not (Test-Path -LiteralPath $rootStr)) {
                             $StatusBox.AppendText("[DEBUG] Test-Path failed for '$rootStr'`n")
                             throw "root does not exist: $rootStr"
