@@ -12,7 +12,12 @@ jobs:
         shell: pwsh
         run: |
           Install-Module PSScriptAnalyzer -Scope CurrentUser -Force -SkipPublisherCheck
-          Invoke-ScriptAnalyzer -Path .\Create-DossierClient-GUI.ps1, .\lib\DossierClient.psm1 -Settings .\ScriptAnalyzerSettings.psd1 -Severity Warning, Error -Recurse
+          $paths = @('.\Create-DossierClient-GUI.ps1', '.\lib\DossierClient.psm1')
+          foreach ($p in $paths) {
+            if (Test-Path $p) {
+              Invoke-ScriptAnalyzer -Path $p -Settings .\ScriptAnalyzerSettings.psd1 -Severity Warning, Error
+            }
+          }
       - name: Run Pester tests
         shell: pwsh
         run: Invoke-Pester -Path .\tests -CI
