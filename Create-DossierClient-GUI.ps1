@@ -114,7 +114,7 @@ $CreateBtn.Add_Click({
                 $StatusBox.AppendText("[DEBUG] New-ClientDossier returned '$root'`n")
                 if ($root -eq $null) {
                     $msg3 = "[$(Get-Date)] ROOT IS NULL"
-                    [System.IO.File]::AppendAllText($logPath, $msg3 + "`n", [System.Text.Encoding]::UTF8)
+                    try { [System.IO.File]::AppendAllText($logPath, $msg3 + "`n", [System.Text.Encoding]::UTF8) } catch { Write-Host "LOGERR2: $($_.Exception.Message)" }
                 }
                 $compNorm = (Get-NormalizedCompanyName -Name $company)
                 try {
