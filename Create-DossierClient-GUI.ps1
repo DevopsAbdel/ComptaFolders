@@ -130,7 +130,13 @@ $CreateBtn.Add_Click({
                 $inv = New-InventoryHtml -DossierPath $root -TemplatePath $template
                 $results += "OK - $root"
                 if ($companies.Count -eq 1 -and $OpenAfterCreate -and $OpenAfterCreate.IsChecked) {
-                    try { Start-Process $root } catch {}
+                    try {
+                        if (Test-Path $root) {
+                            Start-Process -FilePath "explorer.exe" -ArgumentList "`"$root`""
+                        }
+                    } catch {
+                        try { Start-Process $root } catch {}
+                    }
                 }
             } catch {
                 $results += "ERREUR - $company : $($_.Exception.Message)"
