@@ -3,7 +3,10 @@ param()
 
 $ErrorActionPreference = 'Stop'
 
-$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$scriptDir = $PSScriptRoot
+if (-not $scriptDir) {
+    $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+}
 $modulePath = Join-Path $scriptDir 'lib\DossierClient.psm1'
 Import-Module $modulePath -Force
 
@@ -76,43 +79,60 @@ $BrowseBtn.Add_Click({
 $CreateBtn.Add_Click({
     try {
         $year = [int]$YearBox.Text
-        $company = $CompanyBox.Text
+        $companyInput = $CompanyBox.Text
         $parent = $ParentBox.Text
-        $root = New-ClientDossier -Year $year -CompanyName $company -ParentPath $parent
-        $compNorm = (Get-NormalizedCompanyName -Name $company)
-        try {
-            $charteSrc = Join-Path $scriptDir 'Resources\Charte_Nommage_Repere.txt'
-            if (Test-Path $charteSrc) {
-                $c = [System.IO.File]::ReadAllText($charteSrc)
-                $c = $c.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
-                [System.IO.File]::WriteAllText((Join-Path $root 'Charte_Nommage_Fichiers.txt'), $c, (New-Object System.Text.UTF8Encoding($false)))
+
+        $companies = $companyInput -split '[;,]' | ForEach-Object { $_.Trim() } | Where-Object { $_ -ne '' }
+        if ($companies.Count -eq 0) { throw "Veuillez saisir au moins une société." }
+
+        $results = @()
+        foreach ($company in $companies) {
+            try {
+                $root = New-ClientDossier -Year $year -CompanyName $company -ParentPath $parent
+                $compNorm = (Get-NormalizedCompanyName -Name $company)
+                try {
+                    $charteSrc = Join-Path $scriptDir 'Resources\Charte_Nommage_Repere.txt'
+                    if (Test-Path $charteSrc) {
+                        $c = [System.IO.File]::ReadAllText($charteSrc)
+                        $c = $c.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
+                        [System.IO.File]::WriteAllText((Join-Path $root 'Charte_Nommage_Fichiers.txt'), $c, (New-Object System.Text.UTF8Encoding($false)))
+                    }
+                    $scans = Join-Path $root "00-${year}_Scans_a_traiter_${compNorm}"
+                    if (Test-Path $scans) {
+                        $s = [System.IO.File]::ReadAllText((Join-Path $scriptDir 'Resources\LisezMoi_Scans.txt'))
+                        $s = $s.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
+                        [System.IO.File]::WriteAllText((Join-Path $scans 'LisezMoi_Scans.txt'), $s, (New-Object System.Text.UTF8Encoding($false)))
+                    }
+                    $dem = Join-Path $root "08-${year}_Demandes_${compNorm}"
+                    if (Test-Path $dem) {
+                        $d = [System.IO.File]::ReadAllText((Join-Path $scriptDir 'Resources\LisezMoi_Demande.txt'))
+                        $d = $d.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
+                        [System.IO.File]::WriteAllText((Join-Path $dem 'LisezMoi_Demande.txt'), $d, (New-Object System.Text.UTF8Encoding($false)))
+                    }
+                    $prep = Join-Path $root "05-${year}_Decl_Fiscal_${compNorm}\02_Delais_Paiement"
+                    if (Test-Path $prep) {
+                        $p = [System.IO.File]::ReadAllText((Join-Path $scriptDir 'Resources\LisezMoi_Preparation.txt'))
+                        $p = $p.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
+                        [System.IO.File]::WriteAllText((Join-Path $prep 'LisezMoi_Preparation.txt'), $p, (New-Object System.Text.UTF8Encoding($false)))
+                    }
+                } catch {}
+                $template = Join-Path $scriptDir 'Resources\InventoryTemplate.html'
+                $inv = New-InventoryHtml -DossierPath $root -TemplatePath $template
+                $results += "OK - $root"
+                if ($companies.Count -eq 1 -and $OpenAfterCreate -and $OpenAfterCreate.IsChecked) {
+                    try { Start-Process $root } catch {}
+                }
+            } catch {
+                $results += "ERREUR - $company : $($_.Exception.Message)"
             }
-            $scans = Join-Path $root "00-${year}_Scans_a_traiter_${compNorm}"
-            if (Test-Path $scans) {
-                $s = [System.IO.File]::ReadAllText((Join-Path $scriptDir 'Resources\LisezMoi_Scans.txt'))
-                $s = $s.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
-                [System.IO.File]::WriteAllText((Join-Path $scans 'LisezMoi_Scans.txt'), $s, (New-Object System.Text.UTF8Encoding($false)))
-            }
-            $dem = Join-Path $root "08-${year}_Demandes_${compNorm}"
-            if (Test-Path $dem) {
-                $d = [System.IO.File]::ReadAllText((Join-Path $scriptDir 'Resources\LisezMoi_Demande.txt'))
-                $d = $d.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
-                [System.IO.File]::WriteAllText((Join-Path $dem 'LisezMoi_Demande.txt'), $d, (New-Object System.Text.UTF8Encoding($false)))
-            }
-            $prep = Join-Path $root "05-${year}_Decl_Fiscal_${compNorm}\02_Delais_Paiement"
-            if (Test-Path $prep) {
-                $p = [System.IO.File]::ReadAllText((Join-Path $scriptDir 'Resources\LisezMoi_Preparation.txt'))
-                $p = $p.Replace('{ANNEE}', $year).Replace('{SOCIETE}', $compNorm)
-                [System.IO.File]::WriteAllText((Join-Path $prep 'LisezMoi_Preparation.txt'), $p, (New-Object System.Text.UTF8Encoding($false)))
-            }
-        } catch {}
-        $template = Join-Path $scriptDir 'Resources\InventoryTemplate.html'
-        $inv = New-InventoryHtml -DossierPath $root -TemplatePath $template
-        $StatusBox.Text = "Dossier cree : $root`nInventaire : $inv"
-        if ($OpenAfterCreate -and $OpenAfterCreate.IsChecked) {
-            try { Start-Process $root } catch {}
         }
-        Show-DarkMessage -Title "Succes" -Message "Dossier cree avec succes.`n$root"
+
+        $StatusBox.Text = $results -join "`n"
+        if ($companies.Count -eq 1) {
+            Show-DarkMessage -Title "Succes" -Message ($results -join "`n")
+        } else {
+            Show-DarkMessage -Title "Création multiple" -Message ($results -join "`n")
+        }
     } catch {
         $StatusBox.Text = "Erreur : $($_.Exception.Message)"
         Show-DarkMessage -Title "Erreur" -Message $_.Exception.Message
