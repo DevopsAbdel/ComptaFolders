@@ -7,6 +7,12 @@ $scriptDir = $PSScriptRoot
 if (-not $scriptDir) {
     $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 }
+if (-not $scriptDir) {
+    $scriptDir = [System.AppDomain]::CurrentDomain.BaseDirectory
+}
+if (-not $scriptDir) {
+    $scriptDir = (Get-Location).Path
+}
 $modulePath = Join-Path $scriptDir 'lib\DossierClient.psm1'
 Import-Module $modulePath -Force
 
