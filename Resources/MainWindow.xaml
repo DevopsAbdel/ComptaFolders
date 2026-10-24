@@ -156,9 +156,18 @@
 
         <TextBox Grid.Row="3" Name="StatusBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" Background="#16161D" Foreground="#C9C9D0" BorderBrush="#2A2A30" Margin="0,0,0,6" Padding="10" FontSize="11" Height="Auto" MinHeight="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AcceptsReturn="True" VerticalContentAlignment="Top"/>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,4,0,0">
-            <Button Name="GuideBtn" Content="📖 Guide" Margin="4,0" Padding="12,6" Background="#5B9BFF" Foreground="White"/>
-            <Button Name="IndexBtn" Content="📑 Index documents" Margin="4,0" Padding="12,6" Background="#F5B700" Foreground="#1E1E1E"/>
-        </StackPanel>
+        <Grid Grid.Row="4" Margin="0,4,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Name="FermerBtn" Content="❌ Fermer" Margin="4,0" Padding="12,6" Background="#EF4444" Foreground="White"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Name="GuideBtn" Content="📖 Guide" Margin="4,0" Padding="12,6" Background="#5B9BFF" Foreground="White"/>
+                <Button Name="IndexBtn" Content="📑 Index documents" Margin="4,0" Padding="12,6" Background="#F5B700" Foreground="#1E1E1E"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

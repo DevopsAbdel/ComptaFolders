@@ -78,6 +78,7 @@ $CreateBtn = $window.FindName('CreateBtn')
 $StatusBox = $window.FindName('StatusBox')
 $GuideBtn = $window.FindName('GuideBtn')
 $IndexBtn = $window.FindName('IndexBtn')
+$FermerBtn = $window.FindName('FermerBtn')
 $OpenAfterCreate = $window.FindName('OpenAfterCreate')
 
 $parentDefault = $scriptDir
@@ -198,6 +199,10 @@ $CreateBtn.Add_Click({
 $GuideBtn.Add_Click({
     $p = Join-Path $scriptDir 'Documentation\Guide_Utilisation.html'
     Start-Process $p
+})
+
+$FermerBtn.Add_Click({
+    $window.Close()
 })
 $IndexBtn.Add_Click({
     $p = Join-Path $scriptDir 'Documentation\Index_Documents_Types.html'
