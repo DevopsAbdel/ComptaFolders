@@ -13,7 +13,7 @@
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="Margin" Value="4"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background" Value="#7856FF"/>
+            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=Background}"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -23,13 +23,13 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#807856FF"/>
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.7"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="Bd" Property="Background" Value="#407856FF"/>
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.5"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter TargetName="Bd" Property="Background" Value="#3A3A42"/>
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.4"/>
                                 <Setter Property="Foreground" Value="#808080"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
