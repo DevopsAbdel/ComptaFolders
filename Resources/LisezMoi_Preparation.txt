@@ -1,0 +1,6 @@
+Fiche repere - Preparation
+
+Dossier cible : 05-YYYY_Decl_Fiscal_COMPANY
+
+Deposer ici les elements de preparation des declarations fiscales (TVA, delais de paiement).
+Nommer les fichiers selon la charte : Convention_delais_paiement_FOURNISSEUR.docx

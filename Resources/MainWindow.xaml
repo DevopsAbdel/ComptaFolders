@@ -1,0 +1,90 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Createur de dossiers clients comptables"
+        Height="420" Width="620"
+        WindowStartupLocation="CenterScreen"
+        Background="#0E0E0E"
+        Foreground="#E6E6E6"
+        FontFamily="Segoe UI"
+        FontSize="12">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#7856FF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#9B7CFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#6A4FE0"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Background" Value="#3A3A42"/>
+                                <Setter Property="Foreground" Value="#808080"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="Foreground" Value="#E6E6E6"/>
+            <Setter Property="BorderBrush" Value="#3A3A42"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Annee" Foreground="#E6E6E6" Margin="0,0,8,8"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Name="YearBox" Text="2026" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" Margin="0,0,0,8"/>
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Societe" Foreground="#E6E6E6" Margin="0,0,8,8"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="CompanyBox" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" Margin="0,0,0,8"/>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Chemin parent" Foreground="#E6E6E6" Margin="0,0,8,8"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Name="ParentBox" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" Margin="0,0,8,8"/>
+        <Button Grid.Row="2" Grid.Column="2" Name="BrowseBtn" Content="..." Width="36" Background="#7856FF" Foreground="White" Margin="0,0,0,8"/>
+
+        <Button Grid.Row="3" Grid.Column="1" Name="CreateBtn" Content="Creer le dossier" Margin="0,4,0,12" Padding="12,6" Background="#7856FF" Foreground="White"/>
+
+        <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Name="StatusBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Background="#1E1E1E" Foreground="#E6E6E6" BorderBrush="#3A3A42" Margin="0,0,0,8"/>
+
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button Name="GuideBtn" Content="Guide" Margin="4,0" Background="#3A3A42" Foreground="#E6E6E6"/>
+            <Button Name="IndexBtn" Content="Index docs" Margin="4,0" Background="#3A3A42" Foreground="#E6E6E6"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,6 @@
+Fiche repere - Demande
+
+Dossier cible : 08-YYYY_Demandes_COMPANY
+
+Deposer ici les demandes, courriers et pieces a traiter pour le client.
+Nommer les fichiers selon la charte : YYYY-MM_Demande_SOCIETE.pdf

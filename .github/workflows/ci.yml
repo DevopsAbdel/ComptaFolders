@@ -1,0 +1,18 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Pester
+        shell: pwsh
+        run: Install-Module Pester -Scope CurrentUser -Force -SkipPublisherCheck
+      - name: PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force -SkipPublisherCheck
+          Invoke-ScriptAnalyzer -Path .\Create-DossierClient-GUI.ps1, .\lib\DossierClient.psm1 -Settings .\ScriptAnalyzerSettings.psd1 -Severity Warning, Error -Recurse
+      - name: Run Pester tests
+        shell: pwsh
+        run: Invoke-Pester -Path .\tests -CI
