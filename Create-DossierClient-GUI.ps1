@@ -19,7 +19,7 @@ Import-Module $modulePath -Force
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.Windows.Forms
 
-$xamlPath = Join-Path $PSScriptRoot 'Resources\MainWindow.xaml'
+$xamlPath = Join-Path $scriptDir 'Resources\MainWindow.xaml'
 $xamlText = [System.IO.File]::ReadAllText($xamlPath)
 $xamlDoc = New-Object System.Xml.XmlDocument
 $xamlDoc.LoadXml($xamlText)
@@ -72,7 +72,7 @@ $GuideBtn = $window.FindName('GuideBtn')
 $IndexBtn = $window.FindName('IndexBtn')
 $OpenAfterCreate = $window.FindName('OpenAfterCreate')
 
-$parentDefault = $PSScriptRoot
+$parentDefault = $scriptDir
 if (-not $parentDefault -or -not (Test-Path $parentDefault)) { $parentDefault = $scriptDir }
 if (-not $parentDefault -or -not (Test-Path $parentDefault)) { $parentDefault = (Get-Location).Path }
 $window.Add_SourceInitialized({
