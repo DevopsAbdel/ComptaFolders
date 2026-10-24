@@ -65,6 +65,7 @@ $StatusBox = $window.FindName('StatusBox')
 $GuideBtn = $window.FindName('GuideBtn')
 $IndexBtn = $window.FindName('IndexBtn')
 $OpenAfterCreate = $window.FindName('OpenAfterCreate')
+$OpenPowerShell = $window.FindName('OpenPowerShell')
 
 $parentDefault = $PSScriptRoot
 if (-not $parentDefault -or -not (Test-Path $parentDefault)) { $parentDefault = $scriptDir }
@@ -129,13 +130,27 @@ $CreateBtn.Add_Click({
                 $template = Join-Path $scriptDir 'Resources\InventoryTemplate.html'
                 $inv = New-InventoryHtml -DossierPath $root -TemplatePath $template
                 $results += "OK - $root"
-                if ($companies.Count -eq 1 -and $OpenAfterCreate -and $OpenAfterCreate.IsChecked) {
-                    try {
-                        if (Test-Path $root) {
-                            Start-Process -FilePath "explorer.exe" -ArgumentList "`"$root`""
+                if ($companies.Count -eq 1) {
+                    if ($OpenAfterCreate -and $OpenAfterCreate.IsChecked) {
+                        try {
+                            if (Test-Path $root) {
+                                Start-Process -FilePath "explorer.exe" -ArgumentList "`"$root`""
+                            }
+                        } catch {
+                            try { Start-Process $root } catch {}
                         }
-                    } catch {
-                        try { Start-Process $root } catch {}
+                    }
+                    if ($OpenPowerShell -and $OpenPowerShell.IsChecked) {
+                        try {
+                            if (Test-Path $root) {
+                                $pwsh = Get-Command pwsh -ErrorAction SilentlyContinue
+                                if ($pwsh) {
+                                    Start-Process -FilePath $pwsh.Source -ArgumentList "-NoExit", "-WorkingDirectory", "`"$root`""
+                                } else {
+                                    Start-Process -FilePath "powershell.exe" -ArgumentList "-NoExit", "-Command", "Set-Location -LiteralPath `"$root`""
+                                }
+                            }
+                        } catch {}
                     }
                 }
             } catch {
