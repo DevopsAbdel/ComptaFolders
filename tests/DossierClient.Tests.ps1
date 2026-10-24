@@ -1,18 +1,19 @@
-#Requires -Version 5.0
-BeforeAll {
-    $modulePath = Join-Path $PSScriptRoot '..\lib\DossierClient.psm1'
-    Import-Module -Name $modulePath -Force
-}
+$ErrorActionPreference = 'Stop'
+
+$modulePath = Join-Path $PSScriptRoot '..\lib\DossierClient.psm1'
+Import-Module -Name $modulePath -Force
 
 Describe "Get-NormalizedCompanyName" {
     It "convertit en majuscules et remplace les espaces" {
-        Get-NormalizedCompanyName "gear mania" | Should -Be "GEAR_MANIA"
+        $res = Get-NormalizedCompanyName "gear mania"
+        $res | Should Be "GEAR_MANIA"
     }
     It "supprime les caracteres invalides" {
-        Get-NormalizedCompanyName "A/B:C" | Should -Be "ABC"
+        $res = Get-NormalizedCompanyName "A/B:C"
+        $res | Should Be "ABC"
     }
     It "leve une erreur si vide" {
-        { Get-NormalizedCompanyName "   " } | Should -Throw
+        { Get-NormalizedCompanyName "   " } | Should Throw
     }
 }
 
@@ -22,7 +23,7 @@ Describe "New-ClientDossier" {
         New-Item -ItemType Directory -Path $tmp | Out-Null
         try {
             $root = New-ClientDossier -Year 2026 -CompanyName "Gear Mania" -ParentPath $tmp
-            Test-Path $root | Should -Be $true
+            (Test-Path $root) | Should Be $true
             $expected = @(
                 "00-2026_Scans_a_traiter_GEAR_MANIA",
                 "01-2026_Achats_GEAR_MANIA\Autres Achats",
@@ -32,7 +33,7 @@ Describe "New-ClientDossier" {
                 "99-2026_Archives_GEAR_MANIA"
             )
             foreach ($rel in $expected) {
-                Test-Path (Join-Path $root $rel) | Should -Be $true
+                (Test-Path (Join-Path $root $rel)) | Should Be $true
             }
         } finally {
             Remove-Item -Recurse -Force $tmp
@@ -44,7 +45,7 @@ Describe "New-ClientDossier" {
         New-Item -ItemType Directory -Path $tmp | Out-Null
         try {
             New-ClientDossier -Year 2026 -CompanyName "Gear Mania" -ParentPath $tmp | Out-Null
-            { New-ClientDossier -Year 2026 -CompanyName "Gear Mania" -ParentPath $tmp } | Should -Throw
+            { New-ClientDossier -Year 2026 -CompanyName "Gear Mania" -ParentPath $tmp } | Should Throw
         } finally {
             Remove-Item -Recurse -Force $tmp
         }
