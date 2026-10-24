@@ -6,7 +6,7 @@
         Background="#0E0E0E"
         Foreground="#E6E6E6"
         FontFamily="Segoe UI"
-        FontSize="12">
+        FontSize="11">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Cursor" Value="Hand"/>
