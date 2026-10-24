@@ -90,8 +90,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="BrowseBtn" Content="📂 Parcourir" Padding="14,8" Margin="0,0,8,0" Background="#7856FF" Foreground="White"/>
-            <Button Grid.Column="1" Name="CreateBtn" Content="✅ Créer le dossier" Padding="14,8" Background="#22C55E" Foreground="White"/>
+            <Button Grid.Column="0" Name="BrowseBtn" Content="📂 Parcourir" Padding="10,6" Margin="0,0,8,0" Background="#7856FF" Foreground="White" FontSize="11"/>
+            <Button Grid.Column="1" Name="CreateBtn" Content="✅ Créer le dossier" Padding="10,6" Background="#22C55E" Foreground="White" FontSize="11"/>
         </Grid>
         <CheckBox Grid.Row="2" Name="OpenAfterCreate" Content="Ouvrir le dossier après création" IsChecked="True" Foreground="#E6E6E6" Margin="0,50,0,0"/>
 
