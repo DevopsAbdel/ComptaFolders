@@ -40,7 +40,9 @@
         <Style TargetType="TextBox">
             <Setter Property="Padding" Value="6"/>
             <Setter Property="Background" Value="#1E1E1E"/>
-            <Setter Property="Foreground" Value="#E6E6E6"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="CaretBrush" Value="#FFFFFF"/>
+            <Setter Property="SelectionBrush" Value="#7856FF"/>
             <Setter Property="BorderBrush" Value="#3A3A42"/>
             <Setter Property="Template">
                 <Setter.Value>
